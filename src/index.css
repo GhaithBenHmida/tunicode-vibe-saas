@@ -10,6 +10,30 @@ body {
   @apply bg-zinc-950 text-zinc-100 antialiased selection:bg-zinc-700;
   font-family: 'Inter', system-ui, sans-serif;
   letter-spacing: -0.02em;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+  z-index: -1;
+  pointer-events: none;
+  animation: grid-fade 8s ease-in-out infinite alternate;
+}
+
+@keyframes grid-fade {
+  from { opacity: 0.3; }
+  to { opacity: 0.6; }
 }
 
 .glass {
@@ -17,7 +41,7 @@ body {
 }
 
 .custom-shadow {
-  box-shadow: 0 8px 30px rgb(0,0,0,0.04);
+  box-shadow: 0 8px 30px rgb(0,0,0,0.4);
 }
 
 ::-webkit-scrollbar {
