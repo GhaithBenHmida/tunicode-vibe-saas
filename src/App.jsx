@@ -4,6 +4,7 @@ import Documentation from './pages/Documentation'
 import LinkAccount from './pages/LinkAccount'
 import Workspace from './pages/Workspace'
 import Contact from './pages/Contact'
+import Pricing from './pages/Pricing'
 import Navbar from './components/Navbar'
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/link" element={<LinkAccount />} />
           <Route path="/workspace" element={<Workspace />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/pricing" element={<Pricing />} />
         </Routes>
       </main>
     </div>

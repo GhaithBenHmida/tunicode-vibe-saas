@@ -10,7 +10,7 @@ export default function Navbar() {
   const links = [
     { name: 'Documentation', path: '/documentation' },
     { name: 'Contact', path: '/contact' },
-    { name: 'Pricing', path: '#' },
+    { name: 'Pricing', path: '/pricing' },
     { name: 'My Projects', path: '/' },
   ]
 
