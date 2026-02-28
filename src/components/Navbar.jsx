@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Rocket } from 'lucide-react'
+import { Menu, X, Rocket, User } from 'lucide-react'
 import Button from './ui/Button'
 
 export default function Navbar() {
@@ -36,8 +36,11 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link to="/link">
-            <Button variant="primary" className="py-2 px-5">Account</Button>
+          <Link to="/profile">
+            <Button variant="primary" className="py-2 px-5 flex items-center gap-2">
+              <User size={16} />
+              Profile
+            </Button>
           </Link>
         </div>
 
@@ -61,8 +64,11 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link to="/link" onClick={() => setIsOpen(false)}>
-            <Button className="w-full">Account</Button>
+          <Link to="/profile" onClick={() => setIsOpen(false)}>
+            <Button className="w-full flex items-center justify-center gap-2">
+              <User size={16} />
+              Profile
+            </Button>
           </Link>
         </div>
       )}
