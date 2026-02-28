@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Search, SortAsc, SortDesc, MoreVertical, Edit2, Trash2, Globe, Lock, Clock, Calendar } from 'lucide-react'
+import { Search, SortAsc, SortDesc, MoreVertical, Edit2, Trash2, Globe, Lock, Clock, Calendar, Download } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
@@ -46,7 +46,13 @@ export default function MyProjects() {
             <p className="text-zinc-400">Manage and monitor your TuniCode creations.</p>
           </div>
           
-          <Button variant="brand" onClick={() => navigate('/?new=true')}>New Project</Button>
+          <div className="flex items-center gap-3">
+            <Button variant="secondary" className="!rounded-2xl">
+              <Download size={16} />
+              Import Projects
+            </Button>
+            <Button variant="brand" onClick={() => navigate('/?new=true')}>New Project</Button>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">

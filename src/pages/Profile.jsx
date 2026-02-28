@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, CreditCard, FolderKanban, LogOut, Save } from 'lucide-react'
+import { User, CreditCard, FolderKanban, LogOut, Save, Github } from 'lucide-react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import PricingSection from '../components/PricingSection'
 import GridBackground from '../components/ui/GridBackground'
+import Modal from '../components/ui/Modal'
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState('account_info')
   const [userName, setUserName] = useState('Alex Rivera')
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false)
   const navigate = useNavigate()
 
   const menuItems = [
@@ -17,6 +19,11 @@ export default function Profile() {
     { id: 'billing', label: 'Billing', icon: CreditCard },
     { id: 'myprojects', label: 'My Projects', icon: FolderKanban, onClick: () => navigate('/my-projects') },
   ]
+
+  const handleLogout = () => {
+    // Implement actual logout logic here
+    navigate('/')
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -42,12 +49,25 @@ export default function Profile() {
                   className="opacity-50"
                 />
               </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Current Plan</label>
-                <div className="flex items-center gap-3">
-                  <span className="px-3 py-1 rounded-lg bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold uppercase">
-                    Starter Plan
-                  </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Current Plan</label>
+                  <div className="flex items-center gap-3">
+                    <span className="px-3 py-1 rounded-lg bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold uppercase">
+                      Starter Plan
+                    </span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Linked Accounts</label>
+                  <Button 
+                    variant="secondary" 
+                    className="w-full !rounded-2xl !py-2.5 h-auto text-xs"
+                    onClick={() => navigate('/link')}
+                  >
+                    <Github size={14} />
+                    Manage GitHub
+                  </Button>
                 </div>
               </div>
               <div className="pt-4">
@@ -130,7 +150,10 @@ export default function Profile() {
           </div>
 
           <div className="mt-auto p-4 border-t border-zinc-200/10">
-             <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium text-red-400 hover:bg-red-500/10 transition-all">
+             <button 
+                onClick={() => setIsLogoutModalOpen(true)}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium text-red-400 hover:bg-red-500/10 transition-all"
+             >
                 <LogOut size={18} />
                 Logout
              </button>
@@ -142,6 +165,16 @@ export default function Profile() {
           {renderContent()}
         </div>
       </div>
+
+      <Modal 
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogout}
+        title="Confirm Logout"
+        message="Are you sure you want to log out of your TuniCode account? You will need to sign in again to access your projects."
+        confirmLabel="Log Out"
+        variant="danger"
+      />
     </div>
   )
 }
