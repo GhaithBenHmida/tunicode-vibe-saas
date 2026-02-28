@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Rocket } from 'lucide-react'
+import Button from './ui/Button'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,16 +14,14 @@ export default function Navbar() {
     { name: 'My Projects', path: '/' },
   ]
 
-  const isWorkspace = location.pathname === '/workspace'
-
-  if (isWorkspace) return null
+  if (location.pathname === '/workspace') return null
 
   return (
     <nav className="fixed top-0 w-full z-50 glass border-b border-zinc-200/10">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <div className="w-8 h-8 rounded-lg bg-zinc-100 flex items-center justify-center">
-             <Rocket className="w-5 h-5 text-zinc-950" />
+             <Rocket className="w-5 h-5 text-brand-blue" />
           </div>
           <span className="text-lg font-semibold tracking-tight">TuniCode</span>
         </Link>
@@ -37,16 +36,13 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link 
-            to="/link"
-            className="px-4 py-2 rounded-2xl bg-zinc-100 text-zinc-950 text-sm font-medium hover:bg-zinc-200 transition-colors"
-          >
-            Account
+          <Link to="/link">
+            <Button variant="primary" className="py-2 px-5">Account</Button>
           </Link>
         </div>
 
         <button 
-          className="md:hidden p-2 text-zinc-400 hover:text-zinc-100"
+          className="md:hidden p-2 text-zinc-400 hover:text-zinc-100 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -65,12 +61,8 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link
-            to="/link"
-            className="px-4 py-2 rounded-2xl bg-zinc-100 text-zinc-950 text-center font-medium"
-            onClick={() => setIsOpen(false)}
-          >
-            Account
+          <Link to="/link" onClick={() => setIsOpen(false)}>
+            <Button className="w-full">Account</Button>
           </Link>
         </div>
       )}

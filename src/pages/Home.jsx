@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Image, X, ChevronRight } from 'lucide-react'
+import Button from '../components/ui/Button'
+import Card from '../components/ui/Card'
+import GridBackground from '../components/ui/GridBackground'
 
 export default function Home() {
   const [prompt, setPrompt] = useState('')
@@ -25,10 +28,19 @@ export default function Home() {
   ]
 
   return (
-    <div className="pt-32 pb-20 px-6">
+    <div className="relative pt-32 pb-20 px-6 overflow-hidden">
+      <GridBackground />
+      
       <div className="max-w-3xl mx-auto flex flex-col items-center">
-        <div className="w-full space-y-4">
-          <div className="relative rounded-2xl bg-zinc-900 border border-zinc-200/10 shadow-2xl p-2 transition-all focus-within:border-zinc-200/30">
+        <div className="w-full space-y-6">
+          <div className="text-center space-y-4">
+            <h1 className="text-5xl font-bold tracking-tight text-zinc-100">
+              Build with <span className="text-brand-blue">Vibe</span>
+            </h1>
+            <p className="text-zinc-400 max-w-lg mx-auto">Generate high-end applications with a single prompt. Powered by TuniCode Architecture.</p>
+          </div>
+
+          <div className="relative rounded-2xl bg-zinc-900 border border-zinc-200/10 shadow-2xl p-2 transition-all focus-within:border-brand-blue/30">
             <textarea
               className="w-full bg-transparent border-none text-lg p-4 focus:ring-0 resize-none min-h-[120px]"
               placeholder="Describe what you want to build..."
@@ -42,7 +54,7 @@ export default function Home() {
                   <img src={img} className="w-12 h-12 object-cover rounded-lg border border-zinc-200/10" />
                   <button 
                     onClick={() => removeImage(i)}
-                    className="absolute -top-1 -right-1 bg-zinc-950 rounded-full p-0.5 border border-zinc-200/10 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute -top-1 -right-1 bg-zinc-950 rounded-full p-0.5 border border-zinc-200/10 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                   >
                     <X size={10} />
                   </button>
@@ -53,22 +65,22 @@ export default function Home() {
             <div className="flex items-center justify-between p-2 border-t border-zinc-200/10">
               <button 
                 onClick={() => fileInputRef.current?.click()}
-                className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors"
+                className="p-2 text-zinc-400 hover:text-brand-blue transition-colors cursor-pointer"
               >
                 <Image size={20} />
                 <input type="file" multiple ref={fileInputRef} className="hidden" onChange={handleImageUpload} />
               </button>
-              <button 
+              <Button 
+                variant="brand" 
                 onClick={() => navigate('/workspace?p_id=new')}
-                className="bg-zinc-100 text-zinc-950 px-6 py-2 rounded-xl font-semibold hover:bg-zinc-200 transition-all"
               >
                 Generate Project
-              </button>
+              </Button>
             </div>
           </div>
           
-          <p className="text-center text-xs text-zinc-500 font-medium tracking-wide">
-            AI-POWERED GENERATION • BUILT WITH TUNICODE ARCHITECTURE
+          <p className="text-center text-[10px] text-zinc-500 font-bold tracking-widest uppercase">
+            AI-Powered • Custom Engine • <span className="text-brand-blue">V1.0</span>
           </p>
         </div>
       </div>
@@ -76,14 +88,14 @@ export default function Home() {
       <div className="max-w-7xl mx-auto mt-32 space-y-12">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold tracking-tight">Global Projects</h2>
-          <button className="text-sm text-zinc-400 hover:text-zinc-100 flex items-center gap-1 transition-colors">
+          <button className="text-sm text-zinc-400 hover:text-brand-blue flex items-center gap-1 transition-colors cursor-pointer">
             View All <ChevronRight size={16} />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((p) => (
-            <div key={p.id} className="group rounded-2xl bg-zinc-900/50 border border-zinc-200/10 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+            <Card key={p.id} className="group hover:border-brand-blue/20 hover:-translate-y-1">
               <div className="aspect-video w-full overflow-hidden bg-zinc-800">
                 <img src={p.thumb} className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" />
               </div>
@@ -91,14 +103,14 @@ export default function Home() {
                 <h3 className="font-semibold text-lg">{p.title}</h3>
                 <p className="text-sm text-zinc-400">{p.desc}</p>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
         
         <div className="flex justify-center pt-8">
-           <button className="px-8 py-3 rounded-2xl border border-zinc-200/10 text-sm font-medium hover:bg-zinc-900 transition-colors">
+           <Button variant="secondary" className="px-12">
              Browse All Projects
-           </button>
+           </Button>
         </div>
       </div>
     </div>
