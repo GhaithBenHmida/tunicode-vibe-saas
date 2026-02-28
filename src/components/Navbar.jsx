@@ -11,7 +11,7 @@ export default function Navbar() {
     { name: 'Documentation', path: '/documentation' },
     { name: 'Contact', path: '/contact' },
     { name: 'Pricing', path: '/pricing' },
-    { name: 'My Projects', path: '/' },
+    { name: 'My Projects', path: '/my-projects' },
   ]
 
   if (location.pathname === '/workspace') return null
@@ -31,7 +31,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               to={link.path}
-              className="text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
+              className={`text-sm transition-colors ${location.pathname === link.path ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-100'}`}
             >
               {link.name}
             </Link>

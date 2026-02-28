@@ -5,6 +5,7 @@ import LinkAccount from './pages/LinkAccount'
 import Workspace from './pages/Workspace'
 import Contact from './pages/Contact'
 import Pricing from './pages/Pricing'
+import MyProjects from './pages/MyProjects'
 import Navbar from './components/Navbar'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/workspace" element={<Workspace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/my-projects" element={<MyProjects />} />
         </Routes>
       </main>
     </div>
