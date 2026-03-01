@@ -6,6 +6,7 @@ import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import GridBackground from '../components/ui/GridBackground'
 import Modal from '../components/ui/Modal'
+import ImportProjectsModal from '../components/ImportProjectsModal'
 
 const MOCK_PROJECTS = [
   { id: 1, name: 'SaaS Dashboard', status: 'private', lastModified: '2024-03-10T14:30:00Z', lastAdded: '2024-03-01T10:00:00Z', thumb: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400' },
@@ -20,6 +21,7 @@ export default function MyProjects() {
   const [sortBy, setSortBy] = useState('lastModified')
   const [projects, setProjects] = useState(MOCK_PROJECTS)
   const [deleteModal, setDeleteModal] = useState({ isOpen: false, projectId: null })
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false)
 
   const filteredAndSortedProjects = useMemo(() => {
     return [...projects]
@@ -35,6 +37,19 @@ export default function MyProjects() {
     setDeleteModal({ isOpen: false, projectId: null })
   }
 
+  const handleImport = (importedProject) => {
+    const newProject = {
+      id: Date.now(),
+      name: importedProject.name,
+      status: 'private',
+      lastModified: new Date().toISOString(),
+      lastAdded: new Date().toISOString(),
+      thumb: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=400'
+    };
+    setProjects([newProject, ...projects]);
+    setIsImportModalOpen(false);
+  }
+
   return (
     <div className="min-h-screen pt-32 pb-20 px-6 relative">
       <GridBackground />
@@ -47,7 +62,11 @@ export default function MyProjects() {
           </div>
           
           <div className="flex items-center gap-3">
-            <Button variant="secondary" className="!rounded-2xl">
+            <Button 
+              variant="secondary" 
+              className="!rounded-2xl"
+              onClick={() => setIsImportModalOpen(true)}
+            >
               <Download size={16} />
               Import Projects
             </Button>
@@ -149,6 +168,12 @@ export default function MyProjects() {
         message="Are you sure you want to delete this project? This action cannot be undone and all associated code will be permanently removed."
         confirmLabel="Delete Project"
         variant="danger"
+      />
+
+      <ImportProjectsModal 
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImport={handleImport}
       />
     </div>
   )
